@@ -1,0 +1,62 @@
+:root {
+  color-scheme: light dark;
+  font-family: Arial, sans-serif;
+}
+body {
+  margin: 0;
+  background: #f5f6f8;
+  color: #111;
+}
+.container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+.card {
+  background: white;
+  border-radius: 10px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+.grid {
+  display: grid;
+  gap: 0.7rem;
+}
+input {
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 0.3rem;
+  padding: 0.5rem;
+}
+.inline {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.inline input {
+  width: auto;
+}
+button {
+  width: fit-content;
+  border: 0;
+  background: #0a66ff;
+  color: #fff;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.ok {
+  color: #126f33;
+  margin-top: 0.8rem;
+}
+.error {
+  color: #a10f2b;
+  margin-top: 0.8rem;
+}
+.muted {
+  color: #5e6069;
+}
+pre {
+  white-space: pre-wrap;
+}

@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Uzbek LPR</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+  </head>
+  <body>
+    <main class="container">
+      <h1>Распознавание узбекских номеров</h1>
+      <p class="muted">Легковесный режим для слабого ПК: обрабатываются не все кадры.</p>
+
+      <section class="card">
+        <h2>Подключение камер</h2>
+        <form method="post" action="/camera" class="grid">
+          <label>Название камеры <input name="name" required placeholder="Въезд 1" /></label>
+          <label>RTSP/HTTP URL <input name="stream_url" required placeholder="rtsp://user:pass@ip/stream" /></label>
+          <label class="inline"><input type="checkbox" name="enabled" checked /> Включена</label>
+          <button type="submit">Сохранить</button>
+        </form>
+        <ul>
+          {% for cam in cameras %}
+          <li>{{ cam.name }} — {{ cam.stream_url }} {% if cam.enabled %}(активна){% else %}(выключена){% endif %}</li>
+          {% else %}
+          <li>Камеры пока не добавлены.</li>
+          {% endfor %}
+        </ul>
+      </section>
+
+      <section class="card">
+        <h2>Тест по видеофайлу</h2>
+        <form method="post" action="/test-video" class="grid">
+          <label>Путь к видео <input name="video_path" required placeholder="/path/to/test.mp4" /></label>
+          <label>Шаг кадров (экономия CPU) <input name="frame_step" type="number" min="1" value="8" /></label>
+          <button type="submit">Запустить тест</button>
+        </form>
+
+        {% if result is not none %}
+        <div class="ok">Найдены номера: {{ result|join(', ') if result else 'ничего не найдено' }}</div>
+        {% endif %}
+        {% if error %}
+        <div class="error">Ошибка: {{ error }}</div>
+        {% endif %}
+      </section>
+
+      <section class="card">
+        <h2>Последние записи (data/detections.log)</h2>
+        <pre>{% for line in lines %}{{ line }}
+{% else %}Лог пока пуст.
+{% endfor %}</pre>
+      </section>
+    </main>
+  </body>
+</html>
